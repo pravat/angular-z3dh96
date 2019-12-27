@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { Address, Country } from "./model";
 import { CountryService } from "./country.service"
 @Component({
@@ -20,8 +20,8 @@ export class AppComponent implements OnInit {
   getForm(data: Address): FormGroup {
     return this.fb.group({
       Description: [data && data.Description, []],
-      Address1: [data && data.Address1, []],
-      CountryId: [data && data.CountryId, []],
+      Address1: [data && data.Address1, [Validators.required]],
+      CountryId: [data && data.CountryId, [Validators.required]],
       PostalCode: [data && data.PostalCode, []]
     });
   }
@@ -43,5 +43,10 @@ export class AppComponent implements OnInit {
   addAddress(){
     const addFormArray = this.formObject.get('addresses') as FormArray;
     addFormArray.push(this.getForm(null));
+  }
+
+  deleteAddress(index) {
+    const addressForm = this.formObject.get('addresses') as FormArray;
+    addressForm.removeAt(index);
   }
 }

@@ -1,41 +1,47 @@
 <form class="container -fluid" [formGroup]="formObject">
 	<h4>Address</h4>
 	<div formArrayName="addresses">
-		<div *ngFor="let address of formObject.get('addresses').controls;let i=index; let last = last; let first = first" >
-      <div [formGroup]="address">
-        <div class="form-group row">
-          <label for="description" class="col-sm-2 col-form-label col-form-label-sm">Description</label>
-          <div class="col-sm-10">
-            <input formControlName="Description" type="text" class="form-control form-control-sm" for="description"
+		<div
+			*ngFor="let address of formObject.get('addresses').controls;let i=index; let last = last; let first = first">
+			<div [formGroup]="address">
+				<div class="form-group row">
+					<label for="description" class="col-sm-2 col-form-label col-form-label-sm">Description</label>
+					<div class="col-sm-10">
+						<ng-container *ngIf="first else inputDescription">
+							{{address.get('Description').value}}
+						</ng-container>
+						<ng-template #inputDescription>
+							<input formControlName="Description" type="text" class="form-control form-control-sm" for="description"
               placeholder="description">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="address1" class="col-sm-2 col-form-label col-form-label-sm">Address 1</label>
-          <div class="col-sm-10">
-            <input formControlName="Address1" type="text" class="form-control form-control-sm" for="address1"
+            </ng-template>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="address1" class="col-sm-2 col-form-label col-form-label-sm">Address 1</label>
+					<div class="col-sm-10">
+						<input formControlName="Address1" type="text" class="form-control form-control-sm" for="address1"
               placeholder="Address 1">
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label col-form-label-sm">Country</label>
-          <div class="col-sm-10">
-            <select formControlName="CountryId" class="form-control  form-control-sm" id="exampleFormControlSelect1">
+					</div>
+					<div class="form-group row">
+						<label for="exampleFormControlSelect1" class="col-sm-2 col-form-label col-form-label-sm">Country</label>
+						<div class="col-sm-10">
+							<select formControlName="CountryId" class="form-control  form-control-sm" id="exampleFormControlSelect1">
               <option [value]="country.Id" *ngFor="let country of countries">{{country.Name}}</option>
             </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="postalcode" class="col-sm-2 col-form-label col-form-label-sm">Postal Code</label>
-          <div class="col-sm-10">
-            <input formControlName="PostalCode" type="text" class="form-control form-control-sm" for="postalcode"
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="postalcode" class="col-sm-2 col-form-label col-form-label-sm">Postal Code</label>
+						<div class="col-sm-10">
+							<input formControlName="PostalCode" type="text" class="form-control form-control-sm" for="postalcode"
               placeholder="A1A1A1">
             </div>
-        </div>
-      </div>
-      <button class="btn btn-default" *ngIf="last" (click)="addAddress()">+</button>
-			<button class="btn btn-default" *ngIf="!first" (click)="deleteAddress(i)">X</button>
-    </div>
-  </div>
-  
+						</div>
+					</div>
+					<button class="btn btn-default" *ngIf="last" (click)="addAddress()">+</button>
+					<button class="btn btn-default" *ngIf="!first" (click)="deleteAddress(i)">X</button>
+				</div>
+			</div>
+
 </form>
